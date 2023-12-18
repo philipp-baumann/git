@@ -28,15 +28,11 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, flake-utils, fenix}:
+  outputs = { self, nixpkgs, flake-utils}:
     
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        # Create R development environment with r-polars and other useful libraries
-        rvenv = pkgs.rWrapper.override {
-          packages = with pkgs.rPackages; [ devtools languageserver renv rextendr ];
-        };
         system_packages = builtins.attrValues {
           inherit (pkgs)
             R
@@ -51,7 +47,18 @@
             future_apply
             targets
             dplyr
-            renv;
+            renv
+            rextendr
+            sf;
+            # install.packages("polars", repos = "https://rpolars.r-universe.dev")
+        };
+        rust_pkgs = builtins.attrValues {
+          inherit (pkgs)
+            clippy
+            rustc
+            cargo
+            rustfmt
+            rust-analyzer;
             # install.packages("polars", repos = "https://rpolars.r-universe.dev")
         };
       in {
@@ -69,13 +76,14 @@
           buildInputs = [
             system_packages
             rpkgs
+            rust_pkgs
           ];
           # https://churchman.nl/2019/03/10/using-nix-to-create-r-virtual-environments/
           
-          shellHook = ''
-            mkdir -p "$(pwd)/_libs"
-            export R_LIBS_USER="$(pwd)/_libs"
-          '';
+          # shellHook = ''
+          #   mkdir -p "$(pwd)/_libs"
+          #   export R_LIBS_USER="$(pwd)/_libs"
+          # '';
         };
       }
   );
