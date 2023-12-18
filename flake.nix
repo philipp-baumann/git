@@ -27,40 +27,12 @@
   
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.fenix.url = "github:nix-community/fenix";
 
   outputs = { self, nixpkgs, flake-utils, fenix}:
     
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        rustToolchains = fenix.packages.${system}.complete;
-        rdeps = with pkgs; [
-          curl
-          fontconfig
-          fribidi
-          harfbuzz
-          libjpeg
-          libpng
-          libtiff
-          libxml2
-          openssl
-          pkg-config
-        ];
-        # Build r-polars from source
-        rpolars = pkgs.rPackages.buildRPackage {
-          name = "polars";
-          src = self;
-          cargoDeps = pkgs.rustPlatform.importCargoLock {
-            lockFile = "${self}/r-polars/${rpolars.cargoRoot}/Cargo.lock";
-            outputHashes = {};
-            allowBuiltinFetchGit = true;
-          };
-          cargoRoot = "src/rust";
-          nativeBuildInputs = with pkgs;
-            [ cmake rPackages.codetools rustPlatform.cargoSetupHook ]
-            ++ pkgs.lib.singleton rustToolchains.toolchain;
-        };
         # Create R development environment with r-polars and other useful libraries
         rvenv = pkgs.rWrapper.override {
           packages = with pkgs.rPackages; [ devtools languageserver renv rextendr ];
@@ -95,13 +67,9 @@
           LC_MEASUREMENT = "en_US.UTF-8";
         
           buildInputs = [
-            rdeps
             system_packages
             rpkgs
           ];
-          inputsFrom = pkgs.lib.singleton rpolars;
-          packages = pkgs.lib.singleton rvenv;
-          LD_LIBRARY_PATH = pkgs.lib.strings.makeLibraryPath rdeps;
           # https://churchman.nl/2019/03/10/using-nix-to-create-r-virtual-environments/
           
           shellHook = ''
