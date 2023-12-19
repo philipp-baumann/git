@@ -1,6 +1,5 @@
 .direnv/
 .DS_Store
 .Rproj.user
-_libs/
-r-nix-user/
-r-polars
+_r-nix-libs/
+_git-nix-dev/

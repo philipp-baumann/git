@@ -12,7 +12,8 @@
         system_packages = builtins.attrValues {
           inherit (pkgs)
             R
-            glibcLocalesUtf8;
+            glibcLocalesUtf8
+            radianWrapper;
         };
         git_archive_pkgs = [(pkgs.rPackages.buildRPackage {
           name = "r-polars";
@@ -77,10 +78,10 @@
 
           # https://churchman.nl/2019/03/10/using-nix-to-create-r-virtual-environments/
           
-          # shellHook = ''
-          #   mkdir -p "$(pwd)/_libs"
-          #   export R_LIBS_USER="$(pwd)/_libs"
-          # '';
+          shellHook = ''
+            mkdir -p "$(pwd)/_r-nix-libs"
+            export R_LIBS_USER="$(pwd)/_r-nix-libs"
+          '';
         };
       }
   );
