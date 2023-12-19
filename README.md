@@ -33,6 +33,9 @@ To build and activate the nix shell environment, execute
 ``` sh
 cd $HOME/git
 direnv activate
+# navigate to any subfolders and activate
+# to revoke
+# direnv disactivate
 ```
 
 # Current Nix environment
