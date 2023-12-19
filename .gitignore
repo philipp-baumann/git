@@ -1,5 +1,8 @@
 .direnv/
 .DS_Store
 .Rproj.user
+.Renviron
+.Rprofile
+.Rhistory
 _r-nix-libs/
 _git-nix-dev/

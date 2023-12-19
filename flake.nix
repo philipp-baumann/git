@@ -44,7 +44,8 @@
             dplyr
             renv
             rextendr
-            sf;
+            sf
+            usethis;
         };
         rust_pkgs = builtins.attrValues {
           inherit (pkgs)
@@ -81,6 +82,7 @@
           shellHook = ''
             mkdir -p "$(pwd)/_r-nix-libs"
             export R_LIBS_USER="$(pwd)/_r-nix-libs"
+            export R_ENVIRON="$(pwd)/.Renviron"
           '';
         };
       }
