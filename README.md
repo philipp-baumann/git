@@ -35,7 +35,7 @@ cd $HOME/git
 direnv activate
 # navigate to any subfolders and activate
 # to revoke
-# direnv disactivate
+# direnv disallow
 ```
 
 # Current Nix environment
