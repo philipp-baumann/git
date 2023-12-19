@@ -3,4 +3,27 @@ title: "My nix development environment for git repositories"
 format: gfm
 ---
 
-Test
+# Introduction
+
+This is the nix flake config for managing my git development 
+environment on my M2 macbook air.
+
+- [`nix-direnv`](https://github.com/nix-community/nix-direnv)
+  is set up via home-manager.
+
+```sh
+# in `$HOME/.config/home-manager/home.nix`
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+```
+
+To build and activate the nix shell environment, execute
+
+```sh
+cd $HOME/git
+direnv activate
+```
+
