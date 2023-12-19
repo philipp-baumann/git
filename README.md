@@ -34,3 +34,10 @@ To build and activate the nix shell environment, execute
 cd $HOME/git
 direnv activate
 ```
+
+# Current Nix environment
+
+``` sh
+#| eval: true
+cat flake.nix
+```
