@@ -20,6 +20,13 @@ environment on my M2 macbook air.
   };
 ```
 
+The file `.envrc` makes `nix-direnv` use flakes.
+
+```sh
+# in ./.envrc
+use flake .
+```
+
 To build and activate the nix shell environment, execute
 
 ```sh
