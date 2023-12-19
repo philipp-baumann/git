@@ -1,21 +1,18 @@
----
-title: "My nix development environment for git repositories"
-format: gfm
----
+# My nix development environment for git repositories
 
 # Introduction
 
-This is the nix flake config for managing my git development 
-environment on my M2 macbook air.
+This is the nix flake config for managing my git development environment
+on my M2 macbook air.
 
 The goal is to automatically activate the Nix shell defined in
 `flake.nix`, once you navigate into `$HOME/git` and to specific
 subfolders.
 
-- [`nix-direnv`](https://github.com/nix-community/nix-direnv)
-  is set up via home-manager.
+- [`nix-direnv`](https://github.com/nix-community/nix-direnv) is set up
+  via home-manager.
 
-```sh
+``` sh
 # in `$HOME/.config/home-manager/home.nix`
   programs.direnv = {
     enable = true;
@@ -26,15 +23,14 @@ subfolders.
 
 The file `.envrc` makes `nix-direnv` use flakes.
 
-```sh
+``` sh
 # in ./.envrc
 use flake .
 ```
 
 To build and activate the nix shell environment, execute
 
-```sh
+``` sh
 cd $HOME/git
 direnv activate
 ```
-
