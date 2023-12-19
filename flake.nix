@@ -13,6 +13,7 @@
           inherit (pkgs)
             R
             glibcLocalesUtf8
+            # quarto
             radianWrapper;
         };
         git_archive_pkgs = [(pkgs.rPackages.buildRPackage {
@@ -31,7 +32,7 @@
             export HOME=$TMP
             export RPOLARS_PROFILE="release-optimized"
         '';
-  }) ];
+        }) ];
         rpkgs = builtins.attrValues {
           inherit (pkgs.rPackages)
             data_table
