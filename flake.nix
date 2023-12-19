@@ -1,27 +1,3 @@
-        # the r-polars build setup is taken from
-        # https://github.com/pola-rs/r-polars/blob/main/flake.nix
-        # MIT License
-
-        # Copyright (c) 2022 Søren Havelund Welling
-
-        # Permission is hereby granted, free of charge, to any person obtaining a copy
-        # of this software and associated documentation files (the "Software"), to deal
-        # in the Software without restriction, including without limitation the rights
-        # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        # copies of the Software, and to permit persons to whom the Software is
-        # furnished to do so, subject to the following conditions:
-
-        # The above copyright notice and this permission notice shall be included in all
-        # copies or substantial portions of the Software.
-
-        # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        # SOFTWARE.
-
 {
   description = "My nix development environment for git repositories";
   
@@ -38,6 +14,23 @@
             R
             glibcLocalesUtf8;
         };
+        git_archive_pkgs = [(pkgs.rPackages.buildRPackage {
+          name = "r-polars";
+          src = pkgs.fetchgit {
+            url = "https://github.com/pola-rs/r-polars";
+            branchName = "main";
+            rev = "cb367e0b3b11683d57b4f4f3a70cbb32e7815134";
+            sha256 = "sha256-1RnJGGBgpDPqNUBIWQMsNcRD/qNG5XnEqFJoqPw873I=";
+        };
+        propagatedBuildInputs = builtins.attrValues {
+          inherit (pkgs.rPackages) codetools rextendr;
+          inherit (pkgs) cmake curl cacert openssl rustc cargo;
+        };
+        buildPhase = ''
+            export HOME=$TMP
+            export RPOLARS_PROFILE="release-optimized"
+        '';
+  }) ];
         rpkgs = builtins.attrValues {
           inherit (pkgs.rPackages)
             data_table
@@ -50,7 +43,6 @@
             renv
             rextendr
             sf;
-            # install.packages("polars", repos = "https://rpolars.r-universe.dev")
         };
         rust_pkgs = builtins.attrValues {
           inherit (pkgs)
@@ -59,7 +51,6 @@
             cargo
             rustfmt
             rust-analyzer;
-            # install.packages("polars", repos = "https://rpolars.r-universe.dev")
         };
       in {
         devShells.default = pkgs.mkShell {
@@ -72,12 +63,17 @@
           LC_MONETARY = "en_US.UTF-8";
           LC_PAPER = "en_US.UTF-8";
           LC_MEASUREMENT = "en_US.UTF-8";
-        
+          
+          # `propagatedBuildInputs` is for run-time dependencies
+
+          # build-time dependencies
           buildInputs = [
             system_packages
+            git_archive_pkgs
             rpkgs
             rust_pkgs
           ];
+
           # https://churchman.nl/2019/03/10/using-nix-to-create-r-virtual-environments/
           
           # shellHook = ''
