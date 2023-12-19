@@ -39,6 +39,7 @@
             future
             future_apply
             targets
+            tarchetypes
             dplyr
             renv
             rextendr
