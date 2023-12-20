@@ -16,12 +16,14 @@ subfolders.
   is set up via home-manager.
 
 ```sh
-# in `$HOME/.config/home-manager/home.nix`
+# add to `$HOME/.config/home-manager/home.nix`
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
     enableZshIntegration = true;
   };
+# then, just propagate with
+home-manager switch
 ```
 
 The file `.envrc` makes `nix-direnv` use flakes.

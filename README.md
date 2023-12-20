@@ -13,12 +13,14 @@ subfolders.
   via home-manager.
 
 ``` sh
-# in `$HOME/.config/home-manager/home.nix`
+# add to `$HOME/.config/home-manager/home.nix`
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
     enableZshIntegration = true;
   };
+# then, just propagate with
+home-manager switch
 ```
 
 The file `.envrc` makes `nix-direnv` use flakes.
@@ -43,4 +45,12 @@ direnv activate
 ``` sh
 #| eval: true
 cat flake.nix
+```
+
+# How to build a local nix derivation
+
+https://elatov.github.io/2022/01/building-a-nix-package/
+
+``` sh
+https://elatov.github.io/2022/01/building-a-nix-package/
 ```
