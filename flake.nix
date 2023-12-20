@@ -13,7 +13,7 @@
           inherit (pkgs)
             R
             glibcLocalesUtf8
-            # quarto
+            quarto
             radianWrapper;
         };
         git_archive_pkgs = [(pkgs.rPackages.buildRPackage {

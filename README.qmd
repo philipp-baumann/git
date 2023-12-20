@@ -47,3 +47,11 @@ direnv activate
 #| eval: true
 cat flake.nix
 ```
+
+# How to build a local nix derivation
+
+https://elatov.github.io/2022/01/building-a-nix-package/
+
+```sh
+https://elatov.github.io/2022/01/building-a-nix-package/
+```

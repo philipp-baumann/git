@@ -6,3 +6,5 @@
 .Rhistory
 _r-nix-libs/
 _git-nix-dev/
+nixpkgs/
+nixpkgs_local-patches/
