@@ -1,4 +1,4 @@
-$.direnv/
+.direnv/
 .DS_Store
 .Rproj.user
 .Renviron
