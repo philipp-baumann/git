@@ -38,6 +38,7 @@
             data_table
             devtools
             fusen
+            languageserver
             remotes
             future
             future_apply
