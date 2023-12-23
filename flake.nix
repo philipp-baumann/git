@@ -37,6 +37,7 @@
           inherit (pkgs.rPackages)
             data_table
             devtools
+            fusen
             remotes
             future
             future_apply
