@@ -10,4 +10,5 @@ nixpkgs/
 nixpkgs_local-patches/
 philipp-baumann-shared/
 philipp-baumann/
-
+rstudio/
+spectral-cockpit/
