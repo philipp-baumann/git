@@ -9,3 +9,5 @@ _git-nix-dev/
 nixpkgs/
 nixpkgs_local-patches/
 philipp-baumann-shared/
+philipp-baumann/
+
