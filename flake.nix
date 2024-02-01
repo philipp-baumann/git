@@ -38,6 +38,7 @@
             data_table
             devtools
             fusen
+            covr
             languageserver
             remotes
             future
