@@ -37,6 +37,7 @@
           inherit (pkgs.rPackages)
             data_table
             devtools
+            httpgd
             fusen
             covr
             languageserver
