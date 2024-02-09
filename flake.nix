@@ -60,6 +60,10 @@
             rustfmt
             rust-analyzer;
         };
+        vm_pkgs = builtins.attrValues {
+          inherit (pkgs)
+            lima;
+        };
       in {
         devShells.default = pkgs.mkShell {
           LOCALE_ARCHIVE = if 
@@ -80,6 +84,7 @@
             git_archive_pkgs
             rpkgs
             rust_pkgs
+            vm_pkgs
           ];
 
           # https://churchman.nl/2019/03/10/using-nix-to-create-r-virtual-environments/
